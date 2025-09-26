@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/autostart_helper.dir/src/autostart_helper.cpp.o -o autostart_helper  -Wl,-rpath,/home/awu666/lib/MyPorject/DeskSnapShot/build: libdesktop_snapshot.so.1.0.0 

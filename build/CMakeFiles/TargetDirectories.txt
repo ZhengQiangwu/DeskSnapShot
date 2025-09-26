@@ -1,0 +1,8 @@
+/home/awu666/lib/MyPorject/DeskSnapShot/build/CMakeFiles/desktop_snapshot.dir
+/home/awu666/lib/MyPorject/DeskSnapShot/build/CMakeFiles/autostart_helper.dir
+/home/awu666/lib/MyPorject/DeskSnapShot/build/CMakeFiles/edit_cache.dir
+/home/awu666/lib/MyPorject/DeskSnapShot/build/CMakeFiles/rebuild_cache.dir
+/home/awu666/lib/MyPorject/DeskSnapShot/build/CMakeFiles/list_install_components.dir
+/home/awu666/lib/MyPorject/DeskSnapShot/build/CMakeFiles/install.dir
+/home/awu666/lib/MyPorject/DeskSnapShot/build/CMakeFiles/install/local.dir
+/home/awu666/lib/MyPorject/DeskSnapShot/build/CMakeFiles/install/strip.dir

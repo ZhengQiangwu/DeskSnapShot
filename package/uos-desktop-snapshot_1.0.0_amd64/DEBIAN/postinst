@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+echo "正在更新动态链接库缓存..."
+ldconfig
+
+echo "正在设置启动脚本权限..."
+# 强制为两个目标脚本添加执行权限
+# if [ -f /etc/X11/Xsession.d/50-uos-desktop-restore.sh ]; then
+#      chmod +x /etc/X11/Xsession.d/50-uos-desktop-restore.sh
+# fi
+
+if [ -f /etc/profile.d/uos-desktop-restore.sh ]; then
+    chmod +x /etc/profile.d/uos-desktop-restore.sh
+fi
+
+exit 0
