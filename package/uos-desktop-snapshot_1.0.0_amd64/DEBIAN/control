@@ -1,8 +1,0 @@
-Package: uos-desktop-snapshot
-Version: 1.0.0
-Architecture: amd64
-Maintainer: aaawu666 <1214018110@qq.com>
-Description: A library to snapshot and restore desktop icons on UOS.
- Provides an API for external apps and an autostart helper to restore
- icons on boot if a snapshot was armed.
-Depends: libc6, libstdc++6, gvfs-bin, x11-xserver-utils

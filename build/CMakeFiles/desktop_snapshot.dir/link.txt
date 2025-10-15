@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -shared -Wl,-soname,libdesktop_snapshot.so.1 -o libdesktop_snapshot.so.1.0.0 CMakeFiles/desktop_snapshot.dir/src/desktop_snapshot_lib.cpp.o  -lstdc++fs 
