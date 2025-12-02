@@ -4,6 +4,11 @@ project(DesktopSnapshotLib CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# ***** 新增：强制设置编译类型为 Release *****
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose build type: Debug, Release, RelWithDebInfo, MinSizeRel" FORCE)
+endif()
+
 # 设置头文件目录
 include_directories(include)
 
@@ -42,3 +47,17 @@ install(TARGETS desktop_snapshot autostart_helper
     RUNTIME DESTINATION bin
 )
 install(FILES include/desktop_snapshot_api.h DESTINATION include)
+
+# ----------------- 编译 CLI 工具 -----------------
+add_executable(snapshot_tool src/snapshot_cli.cpp)
+
+# 链接核心库
+target_link_libraries(snapshot_tool PRIVATE desktop_snapshot)
+
+# 设置 RPATH (让它能找到 /usr/lib 下的库)
+set_target_properties(snapshot_tool PROPERTIES
+    INSTALL_RPATH "/usr/lib"
+)
+
+# 安装规则
+install(TARGETS snapshot_tool RUNTIME DESTINATION bin)

@@ -15,8 +15,8 @@
 set -e
 
 # -- 定义包信息
-PACKAGE_NAME="uos-desktop-snapshot"
-VERSION="1.0.0"
+PACKAGE_NAME="uos-deep-freeze"
+VERSION="1.2.1"
 ARCHITECTURE=$(dpkg --print-architecture)
 MAINTAINER="aaawu666 <1214018110@qq.com>"
 
@@ -94,6 +94,9 @@ ln -s "libdesktop_snapshot.so.1" "$PKG_ROOT/usr/lib/libdesktop_snapshot.so"
 # 2. 复制 autostart_helper 到 /usr/bin
 cp "${BUILD_DIR}/autostart_helper" "$PKG_ROOT/usr/bin/"
 
+# 2.1 复制 snapshot_tool 到 /usr/bin
+cp "${BUILD_DIR}/snapshot_tool" "$PKG_ROOT/usr/bin/"
+
 # 3. [修改] 检查、复制外部启动脚本到两个目标位置
 echo "--> 正在处理自启动脚本..."
 if [ ! -f "$STARTUP_SCRIPT_SOURCE" ]; then
@@ -117,33 +120,31 @@ Package: ${PACKAGE_NAME}
 Version: ${VERSION}
 Architecture: ${ARCHITECTURE}
 Maintainer: ${MAINTAINER}
-Description: A library to snapshot and restore desktop icons on UOS.
- Provides an API for external apps and an autostart helper to restore
- icons on boot if a snapshot was armed.
+Description: A library to Deep Freeze restoration on UOS.
+ Provides an API for external apps and an autostart helper.
 Depends: libc6, libstdc++6, gvfs-bin, x11-xserver-utils
 EOF
 
 # ==============================================================================
-#  步骤 6: 创建 DEBIAN/postinst 脚本 (保持加强版)
+#  步骤 6: 创建 DEBIAN/postinst (设置权限)
 # ==============================================================================
-echo "--> 正在创建 DEBIAN/postinst 脚本..."
 cat <<EOF > "$PKG_ROOT/DEBIAN/postinst"
 #!/bin/sh
 set -e
-
-echo "正在更新动态链接库缓存..."
 ldconfig
 
-echo "正在设置启动脚本权限..."
-# 强制为两个目标脚本添加执行权限
-# if [ -f /etc/X11/Xsession.d/50-uos-desktop-restore.sh ]; then
-#      chmod +x /etc/X11/Xsession.d/50-uos-desktop-restore.sh
-# fi
+# 设置 helper 权限 (用于开机自启)
+chown root:root /usr/bin/autostart_helper
+chmod 4755 /usr/bin/autostart_helper
 
+# [新增] 设置 CLI 工具权限 (用于 Electron 调用)
+chown root:root /usr/bin/snapshot_tool
+chmod 4755 /usr/bin/snapshot_tool
+
+# 设置脚本权限
 if [ -f /etc/profile.d/uos-desktop-restore.sh ]; then
     chmod +x /etc/profile.d/uos-desktop-restore.sh
 fi
-
 exit 0
 EOF
 chmod 0755 "$PKG_ROOT/DEBIAN/postinst"

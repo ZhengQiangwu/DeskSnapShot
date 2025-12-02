@@ -19,6 +19,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+
     std::string command = argv[1];
 
     if (command == "status") {
